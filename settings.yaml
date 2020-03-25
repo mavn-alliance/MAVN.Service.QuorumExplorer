@@ -1,0 +1,38 @@
+QuorumExplorerService:
+  Blockchain:
+    TransactionNodeUrl:
+      settings-key: PrivateBlockchain-TransactionNodeUrl
+  Db:
+    DataConnString:
+      settings-key: QuorumExplorer-DataConnString
+    LogsConnString:
+      settings-key: QuorumExplorerService-LogsConnString
+      types:
+        - AzureTableStorage
+    CommandTimeoutSeconds:
+      settings-key: QuorumExplorerService-CommandTimeoutSeconds
+QuorumExplorerJob:
+  Blockchain:
+    TransactionNodeUrl:
+      settings-key: PrivateBlockchain-TransactionNodeUrl
+  Db:
+    DataConnString:
+      settings-key: QuorumExplorer-DataConnString
+    LogsConnString:
+      settings-key: QuorumExplorerJob-LogsConnString
+      types:
+        - AzureTableStorage
+    CommandTimeoutSeconds:
+      settings-key: QuorumExplorerJob-CommandTimeoutSeconds
+SlackNotifications:
+  AzureQueue:
+    ConnectionString:
+      settings-key: SlackNotificationsConnString
+      types:
+        - AzureTableStorage
+    QueueName:
+      settings-key: SlackQueueName
+MonitoringServiceClient:
+  MonitoringServiceUrl:
+    settings-key: MonitoringServiceUrl
+
