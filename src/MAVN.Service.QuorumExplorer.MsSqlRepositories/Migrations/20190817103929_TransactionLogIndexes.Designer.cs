@@ -21,7 +21,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.ABIEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.ABIEntity", b =>
                 {
                     b.Property<string>("Signature")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("ABIs");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", b =>
                 {
                     b.Property<string>("BlockHash")
                         .ValueGeneratedOnAdd()
@@ -79,7 +79,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("blocks");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", b =>
                 {
                     b.Property<long>("LogIndex")
                         .HasColumnName("log_index");
@@ -113,7 +113,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("events");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.EventParameterEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.EventParameterEntity", b =>
                 {
                     b.Property<long>("LogIndex")
                         .HasColumnName("log_index");
@@ -151,7 +151,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("event_parameters");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", b =>
                 {
                     b.Property<string>("TransactionHash")
                         .HasColumnName("transaction_hash");
@@ -173,7 +173,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("function_calls");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallParameterEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallParameterEntity", b =>
                 {
                     b.Property<int>("ParameterOrder")
                         .HasColumnName("parameter_order");
@@ -206,7 +206,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("function_call_parameters");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", b =>
                 {
                     b.Property<string>("TransactionHash")
                         .ValueGeneratedOnAdd()
@@ -267,7 +267,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("transactions");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionLogEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionLogEntity", b =>
                 {
                     b.Property<long>("LogIndex")
                         .HasColumnName("log_index");
@@ -312,56 +312,56 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     b.ToTable("transaction_logs");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", b =>
                 {
-                    b.HasOne("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", "Child")
+                    b.HasOne("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", "Child")
                         .WithOne("Parent")
-                        .HasForeignKey("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", "ParentHash");
+                        .HasForeignKey("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", "ParentHash");
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", b =>
                 {
-                    b.HasOne("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionLogEntity", "TransactionLog")
+                    b.HasOne("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionLogEntity", "TransactionLog")
                         .WithOne("Event")
-                        .HasForeignKey("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", "LogIndex", "TransactionHash")
+                        .HasForeignKey("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", "LogIndex", "TransactionHash")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.EventParameterEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.EventParameterEntity", b =>
                 {
-                    b.HasOne("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", "Event")
+                    b.HasOne("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.EventEntity", "Event")
                         .WithMany("Parameters")
                         .HasForeignKey("LogIndex", "TransactionHash")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", b =>
                 {
-                    b.HasOne("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", "Transaction")
+                    b.HasOne("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", "Transaction")
                         .WithOne("FunctionCall")
-                        .HasForeignKey("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", "TransactionHash")
+                        .HasForeignKey("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", "TransactionHash")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallParameterEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallParameterEntity", b =>
                 {
-                    b.HasOne("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", "FunctionCall")
+                    b.HasOne("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.FunctionCallEntity", "FunctionCall")
                         .WithMany("Parameters")
                         .HasForeignKey("TransactionHash")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", b =>
                 {
-                    b.HasOne("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", "Block")
+                    b.HasOne("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.BlockEntity", "Block")
                         .WithMany("Transactions")
                         .HasForeignKey("BlockHash")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionLogEntity", b =>
+            modelBuilder.Entity("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionLogEntity", b =>
                 {
-                    b.HasOne("Lykke.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", "Transaction")
+                    b.HasOne("MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities.TransactionEntity", "Transaction")
                         .WithMany("Logs")
                         .HasForeignKey("TransactionHash")
                         .OnDelete(DeleteBehavior.Cascade);
