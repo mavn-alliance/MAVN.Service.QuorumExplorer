@@ -1,4 +1,4 @@
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using MAVN.Service.QuorumExplorer.Client;
@@ -6,7 +6,7 @@ using MAVN.Service.QuorumExplorer.Client.Models;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
 using MAVN.Service.QuorumExplorer.Domain.Services.Explorer;
 using Microsoft.AspNetCore.Mvc;
-using TransactionDetailedInfo = Lykke.Service.QuorumExplorer.Client.Models.TransactionDetailedInfo;
+using TransactionDetailedInfo = MAVN.Service.QuorumExplorer.Client.Models.TransactionDetailedInfo;
 
 namespace MAVN.Service.QuorumExplorer.Controllers
 {
