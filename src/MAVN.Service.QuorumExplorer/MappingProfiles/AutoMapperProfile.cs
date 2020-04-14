@@ -1,12 +1,12 @@
-using AutoMapper;
+﻿using AutoMapper;
 using MAVN.Service.QuorumExplorer.Client.Models;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
-using Event = Lykke.Service.QuorumExplorer.Client.Models.Event;
-using EventParameter = Lykke.Service.QuorumExplorer.Domain.DTOs.EventParameter;
-using FunctionCall = Lykke.Service.QuorumExplorer.Domain.DTOs.FunctionCall;
-using FunctionCallParameter = Lykke.Service.QuorumExplorer.Domain.DTOs.FunctionCallParameter;
-using TransactionDetailedInfo = Lykke.Service.QuorumExplorer.Domain.DTOs.TransactionDetailedInfo;
-using TransactionLog = Lykke.Service.QuorumExplorer.Domain.DTOs.TransactionLog;
+using Event = MAVN.Service.QuorumExplorer.Client.Models.Event;
+using EventParameter = MAVN.Service.QuorumExplorer.Domain.DTOs.EventParameter;
+using FunctionCall = MAVN.Service.QuorumExplorer.Domain.DTOs.FunctionCall;
+using FunctionCallParameter = MAVN.Service.QuorumExplorer.Domain.DTOs.FunctionCallParameter;
+using TransactionDetailedInfo = MAVN.Service.QuorumExplorer.Domain.DTOs.TransactionDetailedInfo;
+using TransactionLog = MAVN.Service.QuorumExplorer.Domain.DTOs.TransactionLog;
 
 namespace MAVN.Service.QuorumExplorer.MappingProfiles
 {

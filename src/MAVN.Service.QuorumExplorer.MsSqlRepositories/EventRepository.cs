@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Lykke.Common.MsSql;
@@ -10,7 +10,7 @@ using MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Nethereum.Util;
-using EventInfo = Lykke.Service.QuorumExplorer.Domain.DTOs.EventInfo;
+using EventInfo = MAVN.Service.QuorumExplorer.Domain.DTOs.EventInfo;
 
 namespace MAVN.Service.QuorumExplorer.MsSqlRepositories
 {
