@@ -7,7 +7,7 @@ on:
 
 env:
   RELEASE_CLIENT: true
-  RELEASE_CONTRACT: true
+  RELEASE_CONTRACT: false
   RELEASE_JOB: true
   RELEASE_SERVICE: true
   
