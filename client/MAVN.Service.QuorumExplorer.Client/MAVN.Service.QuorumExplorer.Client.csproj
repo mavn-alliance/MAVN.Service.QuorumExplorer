@@ -18,7 +18,7 @@
   <ItemGroup Label="dotnet pack instructions">
     <Content Include="$(OutputPath)MAVN.Service.QuorumExplorer.Client.pdb">
       <Pack>true</Pack>
-
+      <PackagePath>lib/netstandard2.0</PackagePath>
     </Content>
   </ItemGroup>
   
