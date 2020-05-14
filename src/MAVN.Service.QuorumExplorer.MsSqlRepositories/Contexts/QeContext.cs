@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Data.Common;
+using JetBrains.Annotations;
 using MAVN.Common.MsSql;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts
     {
         private const string Schema = "quorum_explorer";
 
-        
+
         public QeContext()
             : base(Schema)
         {
@@ -24,27 +25,31 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts
         {
         }
 
+        public QeContext(DbConnection dbConnection) : base(Schema, dbConnection)
+        {
+        }
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<ABIEntity> ABIs { get; set; }
-        
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<EventEntity> Events { get; set; }
-        
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<EventParameterEntity> EventParameters { get; set; }
-        
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<FunctionCallEntity> FunctionCalls { get; set; }
-        
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<FunctionCallParameterEntity> FunctionCallParameters { get; set; }
-        
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<TransactionEntity> Transactions { get; set; }
-        
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<TransactionLogEntity> TransactionLogs { get; set; }
-        
+
         [UsedImplicitly(ImplicitUseKindFlags.Assign)]
         internal DbSet<BlocksDataEntity> BlocksData { get; set; }
 

@@ -24,7 +24,10 @@ namespace MAVN.Service.QuorumExplorer.Modules
             ContainerBuilder builder)
         {
             builder
-                .RegisterMsSql(() => new QeContext(_dbSettings.DataConnString, false, _dbSettings.CommandTimeoutSeconds));
+                .RegisterMsSql(
+                    _dbSettings.DataConnString,
+                    connString => new QeContext(connString, false, _dbSettings.CommandTimeoutSeconds),
+                    dbConn => new QeContext(dbConn));
 
             builder
                 .RegisterType<ABIRepository>()
