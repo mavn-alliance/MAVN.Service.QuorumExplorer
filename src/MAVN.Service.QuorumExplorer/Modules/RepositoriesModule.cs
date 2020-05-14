@@ -1,11 +1,11 @@
-using Autofac;
+﻿using Autofac;
 using JetBrains.Annotations;
-using Lykke.Common.MsSql;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts;
 using MAVN.Service.QuorumExplorer.Settings;
 using Lykke.SettingsReader;
+using MAVN.Common.MsSql;
 
 namespace MAVN.Service.QuorumExplorer.Modules
 {
@@ -35,7 +35,7 @@ namespace MAVN.Service.QuorumExplorer.Modules
                 .RegisterType<TransactionRepository>()
                 .As<ITransactionRepository>()
                 .SingleInstance();
-            
+
             builder
                 .RegisterType<EventRepository>()
                 .As<IEventRepository>()

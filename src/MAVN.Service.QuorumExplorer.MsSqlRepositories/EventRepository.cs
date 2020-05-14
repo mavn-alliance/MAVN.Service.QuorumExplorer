@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lykke.Common.MsSql;
+using MAVN.Common.MsSql;
 using MAVN.Service.QuorumExplorer.Domain;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
@@ -25,9 +25,9 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories
         }
 
         public async Task SaveAsync(
-            IReadOnlyCollection<Event> events)
+            IReadOnlyCollection<Event> events, TransactionContext txContext = null)
         {
-            using (var context = _contextFactory.CreateDataContext())
+            using (var context = _contextFactory.CreateDataContext(txContext))
             {
                 var hasher = Sha3Keccack.Current;
 
