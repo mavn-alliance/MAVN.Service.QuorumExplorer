@@ -1,6 +1,6 @@
-using Autofac;
+﻿using Autofac;
 using JetBrains.Annotations;
-using Lykke.Common.MsSql;
+using MAVN.Common.MsSql;
 using Lykke.Job.QuorumExplorer.Settings;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories;

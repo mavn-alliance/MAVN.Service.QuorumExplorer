@@ -1,6 +1,6 @@
-using Autofac;
+﻿using Autofac;
 using Lykke.Common.Log;
-using Lykke.Common.MsSql;
+using MAVN.Common.MsSql;
 using Lykke.Job.QuorumExplorer.Services;
 using Lykke.Sdk;
 using Lykke.Job.QuorumExplorer.Settings;
@@ -15,7 +15,7 @@ namespace Lykke.Job.QuorumExplorer.Modules
         public JobModule(
             IReloadingManager<AppSettings> appSettings)
         {
-            
+
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -29,17 +29,17 @@ namespace Lykke.Job.QuorumExplorer.Modules
                 .RegisterType<DecodingService>()
                 .As<IDecodingService>()
                 .SingleInstance();
-            
+
             builder
                 .RegisterType<TransactionInputDecodingService>()
                 .As<ITransactionInputDecodingService>()
                 .SingleInstance();
-            
+
             builder
                 .RegisterType<TransactionLogDecodingService>()
                 .As<ITransactionLogDecodingService>()
                 .SingleInstance();
-            
+
             builder
                 .Register(ctx => new BlockchainIndexingManager
                 (
@@ -48,7 +48,7 @@ namespace Lykke.Job.QuorumExplorer.Modules
                 ))
                 .AsSelf()
                 .SingleInstance();
-            
+
             builder
                 .Register(ctx => new TransactionInputDecodingManager
                 (
@@ -58,7 +58,7 @@ namespace Lykke.Job.QuorumExplorer.Modules
                 ))
                 .AsSelf()
                 .SingleInstance();
-            
+
             builder
                 .Register(ctx => new TransactionLogDecodingManager
                 (
@@ -68,7 +68,7 @@ namespace Lykke.Job.QuorumExplorer.Modules
                 ))
                 .AsSelf()
                 .SingleInstance();
-            
+
             builder
                 .Register(ctx => new StartupManager
                 (
@@ -90,11 +90,6 @@ namespace Lykke.Job.QuorumExplorer.Modules
                 ))
                 .As<IShutdownManager>()
                 .SingleInstance();
-            
-            builder
-                .RegisterType<TransactionScopeHandler>()
-                .AsSelf()
-                .InstancePerLifetimeScope();
         }
     }
 }

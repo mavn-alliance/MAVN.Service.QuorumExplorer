@@ -1,5 +1,5 @@
-using JetBrains.Annotations;
-using Lykke.Common.MsSql;
+﻿using JetBrains.Annotations;
+using MAVN.Common.MsSql;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
