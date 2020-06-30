@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts;
@@ -14,11 +14,11 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories
 {
     public class ABIRepository : IABIRepository
     {
-        private readonly MsSqlContextFactory<QeContext> _contextFactory;
+        private readonly PostgreSQLContextFactory<QeContext> _contextFactory;
         private readonly CachedDataDictionary<string, ABI> _fetchCache;
 
         public ABIRepository(
-            MsSqlContextFactory<QeContext> contextFactory)
+            PostgreSQLContextFactory<QeContext> contextFactory)
         {
             _contextFactory = contextFactory;
             

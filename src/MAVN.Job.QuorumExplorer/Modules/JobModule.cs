@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Lykke.Common.Log;
-using MAVN.Common.MsSql;
 using Lykke.Job.QuorumExplorer.Services;
 using Lykke.Sdk;
 using Lykke.Job.QuorumExplorer.Settings;

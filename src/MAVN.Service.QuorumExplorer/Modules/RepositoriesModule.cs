@@ -5,7 +5,7 @@ using MAVN.Service.QuorumExplorer.MsSqlRepositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts;
 using MAVN.Service.QuorumExplorer.Settings;
 using Lykke.SettingsReader;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 
 namespace MAVN.Service.QuorumExplorer.Modules
 {
@@ -24,7 +24,7 @@ namespace MAVN.Service.QuorumExplorer.Modules
             ContainerBuilder builder)
         {
             builder
-                .RegisterMsSql(
+                .RegisterPostgreSQL(
                     _dbSettings.DataConnString,
                     connString => new QeContext(connString, false, _dbSettings.CommandTimeoutSeconds),
                     dbConn => new QeContext(dbConn));

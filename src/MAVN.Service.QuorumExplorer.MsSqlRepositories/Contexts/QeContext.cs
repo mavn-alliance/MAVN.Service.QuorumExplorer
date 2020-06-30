@@ -1,13 +1,13 @@
 ﻿using System.Data.Common;
 using JetBrains.Annotations;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts
 {
-    public class QeContext : MsSqlContext
+    public class QeContext : PostgreSQLContext
     {
         private const string Schema = "quorum_explorer";
 
@@ -54,13 +54,13 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts
         internal DbSet<BlocksDataEntity> BlocksData { get; set; }
 
 
-        protected override void OnLykkeConfiguring(
+        protected override void OnMAVNConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ConfigureWarnings(w => w.Log(RelationalEventId.QueryClientEvaluationWarning));
         }
 
-        protected override void OnLykkeModelCreating(
+        protected override void OnMAVNModelCreating(
             ModelBuilder modelBuilder)
         {
             ABIEntity.OnLykkeModelCreating(modelBuilder);

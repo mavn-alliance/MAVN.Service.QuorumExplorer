@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Constants;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts;
@@ -10,10 +10,10 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories
 {
     public class IndexingStateRepository : IIndexingStateRepository
     {
-        private readonly MsSqlContextFactory<QeContext> _contextFactory;
+        private readonly PostgreSQLContextFactory<QeContext> _contextFactory;
 
         public IndexingStateRepository(
-            MsSqlContextFactory<QeContext> contextFactory)
+            PostgreSQLContextFactory<QeContext> contextFactory)
         {
             _contextFactory = contextFactory;
         }
