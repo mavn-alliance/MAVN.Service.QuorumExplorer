@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 using MAVN.Service.QuorumExplorer.Domain;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
 using MAVN.Service.QuorumExplorer.Domain.Extensions;
@@ -17,10 +17,10 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories
 {
     public class TransactionRepository : ITransactionRepository
     {
-        private readonly MsSqlContextFactory<QeContext> _contextFactory;
+        private readonly PostgreSQLContextFactory<QeContext> _contextFactory;
         
         public TransactionRepository(
-            MsSqlContextFactory<QeContext> contextFactory)
+            PostgreSQLContextFactory<QeContext> contextFactory)
         {
             _contextFactory = contextFactory;
         }

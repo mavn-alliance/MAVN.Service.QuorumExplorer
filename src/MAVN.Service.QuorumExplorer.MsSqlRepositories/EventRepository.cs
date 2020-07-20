@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 using MAVN.Service.QuorumExplorer.Domain;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
@@ -16,10 +16,10 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories
 {
     public class EventRepository : IEventRepository
     {
-        private readonly MsSqlContextFactory<QeContext> _contextFactory;
+        private readonly PostgreSQLContextFactory<QeContext> _contextFactory;
 
         public EventRepository(
-            MsSqlContextFactory<QeContext> contextFactory)
+            PostgreSQLContextFactory<QeContext> contextFactory)
         {
             _contextFactory = contextFactory;
         }

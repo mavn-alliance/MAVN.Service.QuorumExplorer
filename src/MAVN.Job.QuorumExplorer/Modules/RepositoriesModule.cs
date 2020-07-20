@@ -2,12 +2,12 @@
 using System.Data.Common;
 using Autofac;
 using JetBrains.Annotations;
-using MAVN.Common.MsSql;
 using Lykke.Job.QuorumExplorer.Settings;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories;
 using MAVN.Service.QuorumExplorer.MsSqlRepositories.Contexts;
 using Lykke.SettingsReader;
+using MAVN.Persistence.PostgreSQL.Legacy;
 
 namespace Lykke.Job.QuorumExplorer.Modules
 {
@@ -26,7 +26,7 @@ namespace Lykke.Job.QuorumExplorer.Modules
             ContainerBuilder builder)
         {
             builder
-                .RegisterMsSql(
+                .RegisterPostgreSQL(
                     _dbSettings.DataConnString,
                     connString => new QeContext(connString, false, _dbSettings.CommandTimeoutSeconds),
                     dbConn => new QeContext(dbConn));

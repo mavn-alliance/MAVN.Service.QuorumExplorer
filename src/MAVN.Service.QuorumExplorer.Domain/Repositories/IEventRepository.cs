@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
 
 namespace MAVN.Service.QuorumExplorer.Domain.Repositories

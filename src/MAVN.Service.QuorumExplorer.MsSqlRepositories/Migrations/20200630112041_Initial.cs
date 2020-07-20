@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
 {
-    public partial class Initialize : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,26 +25,16 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "blocks",
+                name: "blocks_data",
                 schema: "quorum_explorer",
                 columns: table => new
                 {
-                    block_hash = table.Column<string>(nullable: false),
-                    number = table.Column<long>(nullable: false),
-                    parent_hash = table.Column<string>(nullable: true),
-                    timestamp = table.Column<long>(nullable: false),
-                    transactions_count = table.Column<int>(nullable: false)
+                    key = table.Column<string>(nullable: false),
+                    value = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_blocks", x => x.block_hash);
-                    table.ForeignKey(
-                        name: "FK_blocks_blocks_parent_hash",
-                        column: x => x.parent_hash,
-                        principalSchema: "quorum_explorer",
-                        principalTable: "blocks",
-                        principalColumn: "block_hash",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_blocks_data", x => x.key);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,6 +45,7 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     transaction_hash = table.Column<string>(nullable: false),
                     block_hash = table.Column<string>(nullable: false),
                     block_number = table.Column<long>(nullable: false),
+                    block_timestamp = table.Column<long>(nullable: false),
                     contract_address = table.Column<string>(nullable: true),
                     from = table.Column<string>(nullable: false),
                     input = table.Column<string>(nullable: true),
@@ -67,13 +58,6 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_transactions", x => x.transaction_hash);
-                    table.ForeignKey(
-                        name: "FK_transactions_blocks_block_hash",
-                        column: x => x.block_hash,
-                        principalSchema: "quorum_explorer",
-                        principalTable: "blocks",
-                        principalColumn: "block_hash",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,7 +94,9 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     topic_0 = table.Column<string>(nullable: false),
                     topic_1 = table.Column<string>(nullable: true),
                     topic_2 = table.Column<string>(nullable: true),
-                    topic_3 = table.Column<string>(nullable: true)
+                    topic_3 = table.Column<string>(nullable: true),
+                    decoded = table.Column<bool>(nullable: false),
+                    block_timestamp = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,14 +120,15 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     parameter_name = table.Column<string>(nullable: false),
                     parameter_type = table.Column<string>(nullable: false),
                     parameter_value = table.Column<string>(nullable: false),
-                    parameter_value_hash = table.Column<string>(nullable: false)
+                    parameter_value_hash = table.Column<string>(nullable: false),
+                    FunctionCallTransactionHash = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_function_call_parameters", x => new { x.parameter_order, x.transaction_hash });
                     table.ForeignKey(
-                        name: "FK_function_call_parameters_function_calls_transaction_hash",
-                        column: x => x.transaction_hash,
+                        name: "FK_function_call_parameters_function_calls_FunctionCallTransac~",
+                        column: x => x.FunctionCallTransactionHash,
                         principalSchema: "quorum_explorer",
                         principalTable: "function_calls",
                         principalColumn: "transaction_hash",
@@ -157,7 +144,8 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                     transaction_hash = table.Column<string>(nullable: false),
                     event_name = table.Column<string>(nullable: false),
                     event_signature = table.Column<string>(nullable: false),
-                    parameters_json = table.Column<string>(nullable: false)
+                    parameters_json = table.Column<string>(nullable: false),
+                    block_timestamp = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -209,27 +197,6 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 column: "type");
 
             migrationBuilder.CreateIndex(
-                name: "IX_blocks_number",
-                schema: "quorum_explorer",
-                table: "blocks",
-                column: "number",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_blocks_parent_hash",
-                schema: "quorum_explorer",
-                table: "blocks",
-                column: "parent_hash",
-                unique: true,
-                filter: "[parent_hash] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_blocks_timestamp",
-                schema: "quorum_explorer",
-                table: "blocks",
-                column: "timestamp");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_event_parameters_transaction_hash",
                 schema: "quorum_explorer",
                 table: "event_parameters",
@@ -246,6 +213,12 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 schema: "quorum_explorer",
                 table: "event_parameters",
                 columns: new[] { "parameter_type", "parameter_value_hash" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_events_block_timestamp",
+                schema: "quorum_explorer",
+                table: "events",
+                column: "block_timestamp");
 
             migrationBuilder.CreateIndex(
                 name: "IX_events_event_name",
@@ -266,10 +239,28 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 column: "transaction_hash");
 
             migrationBuilder.CreateIndex(
-                name: "IX_function_call_parameters_transaction_hash",
+                name: "IX_events_log_index_transaction_hash",
+                schema: "quorum_explorer",
+                table: "events",
+                columns: new[] { "log_index", "transaction_hash" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_events_block_timestamp_log_index_transaction_hash",
+                schema: "quorum_explorer",
+                table: "events",
+                columns: new[] { "block_timestamp", "log_index", "transaction_hash" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_events_block_timestamp_log_index_transaction_hash_event_name",
+                schema: "quorum_explorer",
+                table: "events",
+                columns: new[] { "block_timestamp", "log_index", "transaction_hash", "event_name" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_function_call_parameters_FunctionCallTransactionHash",
                 schema: "quorum_explorer",
                 table: "function_call_parameters",
-                column: "transaction_hash");
+                column: "FunctionCallTransactionHash");
 
             migrationBuilder.CreateIndex(
                 name: "IX_function_call_parameters_parameter_type_parameter_value_hash",
@@ -278,10 +269,28 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 columns: new[] { "parameter_type", "parameter_value_hash" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_function_calls_transaction_hash",
+                schema: "quorum_explorer",
+                table: "function_calls",
+                column: "transaction_hash");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_transaction_logs_address",
                 schema: "quorum_explorer",
                 table: "transaction_logs",
                 column: "address");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_transaction_logs_block_timestamp",
+                schema: "quorum_explorer",
+                table: "transaction_logs",
+                column: "block_timestamp");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_transaction_logs_decoded",
+                schema: "quorum_explorer",
+                table: "transaction_logs",
+                column: "decoded");
 
             migrationBuilder.CreateIndex(
                 name: "IX_transaction_logs_topic_0",
@@ -324,6 +333,12 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 schema: "quorum_explorer",
                 table: "transactions",
                 column: "block_number");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_transactions_block_timestamp",
+                schema: "quorum_explorer",
+                table: "transactions",
+                column: "block_timestamp");
 
             migrationBuilder.CreateIndex(
                 name: "IX_transactions_contract_address",
@@ -371,6 +386,10 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
                 schema: "quorum_explorer");
 
             migrationBuilder.DropTable(
+                name: "blocks_data",
+                schema: "quorum_explorer");
+
+            migrationBuilder.DropTable(
                 name: "event_parameters",
                 schema: "quorum_explorer");
 
@@ -392,10 +411,6 @@ namespace MAVN.Service.QuorumExplorer.MsSqlRepositories.Migrations
 
             migrationBuilder.DropTable(
                 name: "transactions",
-                schema: "quorum_explorer");
-
-            migrationBuilder.DropTable(
-                name: "blocks",
                 schema: "quorum_explorer");
         }
     }

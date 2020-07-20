@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common.Log;
 using Lykke.Common.Log;
-using MAVN.Common.MsSql;
+using MAVN.Persistence.PostgreSQL.Legacy;
 using MAVN.Service.QuorumExplorer.Domain.DTOs;
 using MAVN.Service.QuorumExplorer.Domain.Repositories;
 using MAVN.Service.QuorumExplorer.Domain.Services;
